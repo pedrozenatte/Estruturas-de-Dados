@@ -34,6 +34,17 @@ tipo_no *criar_no(int valor) {
     return no;
 }
 
+//Função para destruir lista
+void destroi_lista(tipo_lista **L) {
+    free(*L);
+    *L = NULL; 
+}
+
+void destroi_no(tipo_no **no) {
+    free(*no);
+    *no = NULL; 
+}
+
 //Função para inserir em uma lista vazia
 void insere_lista_vazia(tipo_lista *L, tipo_no *no) {
     L->inicio = no;
@@ -50,9 +61,14 @@ void insere_na_cabeca(tipo_lista *L, int valor) {
         insere_lista_vazia(L, no);
     }
     else { //Lista já possui pelo menos um elemento
-        no->proximo_no = L->inicio;
-        L->inicio = no; 
-        L->quantidade++;
+        if(busca_elemento(L, valor) == -1){ //Elemento não foi inserido
+            no->proximo_no = L->inicio;
+            L->inicio = no; 
+            L->quantidade++;
+        }
+        else{
+            printf("Elemento ja inserido\n");
+        }
     }
 }
 
@@ -86,9 +102,14 @@ void insere_no_final(tipo_lista *L, int valor) {
     //OBS: Como já existe um ponteiro que vai diretamente para o final, pode-se utilizar dele para uma função mais rápida
     //Modo o qual se utiliza do ponteiro para o final
     else {
-        L->final->proximo_no = no;
-        L->final = no;
-        L->quantidade++;
+        if(busca_elemento(L, valor) == -1){
+            L->final->proximo_no = no;
+            L->final = no;
+            L->quantidade++; 
+        }
+        else{
+            printf("Elemento ja inserido\n");
+        }
     }
 }
 
@@ -137,7 +158,38 @@ int busca_elemento(const tipo_lista *L, int valor_buscado) {
 
 }
 
-//Função para remover elementos da lista
-void remove_elementos(tipo_lista *L) {
+//Função para remover elementos da lista independente de sua posição
+void remove_elemento(tipo_lista *L, int valor_removido) {
+    tipo_no *referencia_direita = L->inicio; //Guarda a referência do nó a ser apagado
+    tipo_no *referencia_esquerda = NULL; //Guarda a referência do nó anterior ao que deve ser apagado
 
+    int indice = busca_elemento(L, valor_removido); //Guarda o índice do elemento a ser removido
+
+    //Vamos até o índice
+    if(indice != -1) { //Significa que existe elemento para ser retirado
+        printf("indice: %d\n", indice);
+        for(int i = 0; i < indice; i++) {
+            referencia_esquerda = referencia_direita;
+            referencia_direita = referencia_direita->proximo_no;
+        }
+        //printf("Valor a ser removido: %d\n", referencia_direita->valor);
+        //A partir do término do for, estamos exatamente no elemento a ser removido
+        if(indice == 1) { //Estamos removendo o primeiro elemento
+            L->inicio = referencia_direita->proximo_no;
+            destroi_no(&referencia_direita);
+        }
+        else if(indice == L->quantidade) { //Estamos removendo o último elemento
+            L->final = referencia_esquerda;
+            destroi_no(&referencia_direita);
+        }
+        else { //Estamos removendo um elemento que está no meio da lista
+            //Não precisamos nos preocupar com o ínicio e o fim da lista
+            referencia_esquerda->proximo_no = referencia_direita->proximo_no;
+            destroi_no(&referencia_direita);
+        }
+    }
+    else{
+        printf("Elemento inexistente\n");
+    }
+    
 }

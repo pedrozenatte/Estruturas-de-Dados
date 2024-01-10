@@ -12,8 +12,11 @@ int main() {
     insere_no_final(L, 12);
     insere_no_final(L, 13);
     imprime_lista(L);
+    remove_elemento(L, 13);
     printf("\n");
-    printf("%d\n", busca_elemento(L, 13)); 
+    imprime_lista(L);
+    
+    //printf("%d\n", busca_elemento(L, 13)); 
 
     return 0; 
 }
