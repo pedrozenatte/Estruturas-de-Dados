@@ -1,6 +1,7 @@
 #include "lista_encadeada_simples.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 //Estruturas da lista encadeada simples
 typedef struct _no {
@@ -10,7 +11,7 @@ typedef struct _no {
 
 typedef struct _lista {
     tipo_no *inicio; 
-    int quantidade;
+    int quantidade; //Guarda a quantidade de elementos da lista
     tipo_no *final; 
 } tipo_lista;
 
@@ -19,6 +20,7 @@ tipo_lista *criar_lista() {
     tipo_lista *L = (tipo_lista *) calloc(1, sizeof(tipo_lista));
     L->inicio = NULL;
     L->final = NULL;
+    L->quantidade = 0; //Boa prática de programação mesmo com utilizando o calloc
 
     return L; 
 }
@@ -98,4 +100,44 @@ void imprime_lista(const tipo_lista *L) { //const, pois só iremos fazer leitura
 
         aux = aux->proximo_no;
     } 
+}
+
+//Função para verificar se a lista está vazia
+bool verifica_lista_vazia(const tipo_lista *L) {
+    if(L->quantidade == 0) { //Se a quantidade de elementos presentes na lista for 0, então ela está vazia
+        return true; 
+    }
+    else {
+        return false; 
+    }
+}
+
+//Função para buscar um elemento da lista
+int busca_elemento(const tipo_lista *L, int valor_buscado) {
+    //Vamos verificar se a lista está vazia
+    if(verifica_lista_vazia(L)) {
+        return -1; //Elemento não encontrado
+    }
+    else { 
+        tipo_no *referencia = L->inicio; 
+        int indice = 1; //Primeiro elemento
+
+        while(referencia != NULL) {
+            if(referencia->valor == valor_buscado) {
+                return indice; //Elemento encontrado e está na posição indice
+            }
+            else {
+                referencia = referencia->proximo_no;
+                indice++;
+            }
+        }
+
+        return -1; //Elemento não encontrado 
+    }
+
+}
+
+//Função para remover elementos da lista
+void remove_elementos(tipo_lista *L) {
+
 }

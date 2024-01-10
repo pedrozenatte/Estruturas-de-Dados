@@ -12,7 +12,8 @@ int main() {
     insere_no_final(L, 12);
     insere_no_final(L, 13);
     imprime_lista(L);
-
+    printf("\n");
+    printf("%d\n", busca_elemento(L, 13)); 
 
     return 0; 
 }
