@@ -121,6 +121,7 @@ void imprime_lista(const tipo_lista *L) { //const, pois só iremos fazer leitura
 
         aux = aux->proximo_no;
     } 
+    printf("\n");
 }
 
 //Função para verificar se a lista está vazia
@@ -164,28 +165,29 @@ void remove_elemento(tipo_lista *L, int valor_removido) {
     tipo_no *referencia_esquerda = NULL; //Guarda a referência do nó anterior ao que deve ser apagado
 
     int indice = busca_elemento(L, valor_removido); //Guarda o índice do elemento a ser removido
-
     //Vamos até o índice
     if(indice != -1) { //Significa que existe elemento para ser retirado
-        printf("indice: %d\n", indice);
-        for(int i = 0; i < indice; i++) {
+        for(int i = 0; i < indice - 1; i++) {
             referencia_esquerda = referencia_direita;
             referencia_direita = referencia_direita->proximo_no;
         }
-        //printf("Valor a ser removido: %d\n", referencia_direita->valor);
         //A partir do término do for, estamos exatamente no elemento a ser removido
         if(indice == 1) { //Estamos removendo o primeiro elemento
             L->inicio = referencia_direita->proximo_no;
             destroi_no(&referencia_direita);
+            L->quantidade--;
         }
         else if(indice == L->quantidade) { //Estamos removendo o último elemento
             L->final = referencia_esquerda;
             destroi_no(&referencia_direita);
+            L->quantidade--;
+            L->final->proximo_no = NULL;
         }
         else { //Estamos removendo um elemento que está no meio da lista
             //Não precisamos nos preocupar com o ínicio e o fim da lista
             referencia_esquerda->proximo_no = referencia_direita->proximo_no;
             destroi_no(&referencia_direita);
+            L->quantidade--;
         }
     }
     else{

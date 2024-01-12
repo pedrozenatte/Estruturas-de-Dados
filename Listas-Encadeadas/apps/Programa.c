@@ -13,7 +13,17 @@ int main() {
     insere_no_final(L, 13);
     imprime_lista(L);
     remove_elemento(L, 13);
-    printf("\n");
+    imprime_lista(L);
+    remove_elemento(L, 10);
+    imprime_lista(L);
+    remove_elemento(L, 30);
+    imprime_lista(L);
+    remove_elemento(L, 20);
+    imprime_lista(L);
+    remove_elemento(L, 11);
+    imprime_lista(L);
+    remove_elemento(L, 12);
+    imprime_lista(L);
     imprime_lista(L);
     
     //printf("%d\n", busca_elemento(L, 13)); 
