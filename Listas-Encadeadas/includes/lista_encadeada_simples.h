@@ -14,6 +14,7 @@ void imprime_lista(const tipo_lista *L);
 void insere_no_final(tipo_lista *L, int valor);
 int busca_elemento(const tipo_lista *L, int valor_buscado);
 void remove_elemento(tipo_lista *L, int valor_removido);
+void deletar_lista(tipo_lista *L);
 
 
 #endif // LISTA_ENCADEADA_SIMPLES

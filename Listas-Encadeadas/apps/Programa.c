@@ -12,6 +12,9 @@ int main() {
     insere_no_final(L, 12);
     insere_no_final(L, 13);
     imprime_lista(L);
+    deletar_lista(L);
+    /*
+    imprime_lista(L);
     remove_elemento(L, 13);
     imprime_lista(L);
     remove_elemento(L, 10);
@@ -25,8 +28,7 @@ int main() {
     remove_elemento(L, 12);
     imprime_lista(L);
     imprime_lista(L);
-    
-    //printf("%d\n", busca_elemento(L, 13)); 
+    */
 
     return 0; 
 }

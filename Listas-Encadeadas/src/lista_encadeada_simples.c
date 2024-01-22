@@ -195,3 +195,24 @@ void remove_elemento(tipo_lista *L, int valor_removido) {
     }
     
 }
+
+
+//Função para deletar a lista por completo
+void deletar_lista(tipo_lista *L) {
+    tipo_no *referencia_ant = NULL; //Guarda a referencia anterior, o qual será apagado
+    tipo_no *referencia_suc = L->inicio; //Guarda a referencia sucessor
+
+    for(int i = 0; i < L->quantidade; i++) {
+        referencia_ant = referencia_suc; 
+        referencia_suc = referencia_suc->proximo_no;
+
+        destroi_no(&referencia_ant); 
+    }
+
+    if(referencia_suc == NULL) {
+        referencia_ant = NULL;
+        destroi_lista(&L); 
+        
+        printf("Lista destruida por completo\n"); 
+    }
+}
